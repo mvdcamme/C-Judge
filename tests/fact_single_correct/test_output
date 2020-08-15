@@ -1,0 +1,187 @@
+{
+    "status": "correct", 
+    "accepted": true, 
+    "groups": [
+        {
+            "description": "FactorialTest", 
+            "groups": [
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "1", 
+                                    "generated": "1", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "fac(-5)", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "1", 
+                                    "generated": "1", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "fac(-1)", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "1", 
+                                    "generated": "1", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "fac(-10)", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "1", 
+                                    "generated": "1", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "fac(0)", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "1", 
+                                    "generated": "1", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "fac(1)", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "2", 
+                                    "generated": "2", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "fac(2)", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "6", 
+                                    "generated": "6", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "fac(3)", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "40320", 
+                                    "generated": "40320", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "fac(8)", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

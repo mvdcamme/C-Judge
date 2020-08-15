@@ -1,0 +1,77 @@
+{
+    "status": "correct", 
+    "accepted": true, 
+    "groups": [
+        {
+            "description": "CountCTest", 
+            "groups": [
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "1", 
+                                    "generated": "1", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "count_c(\"file_1\")", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "16", 
+                                    "generated": "16", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "count_c(\"file_2\")", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "0", 
+                                    "generated": "0", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "count_c(\"file_3\")", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

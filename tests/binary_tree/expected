@@ -1,0 +1,55 @@
+{
+    "status": "correct", 
+    "accepted": true, 
+    "groups": [
+        {
+            "description": "CountNodesTest", 
+            "groups": [
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "3", 
+                                    "generated": "3", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "should return 3", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "5", 
+                                    "generated": "5", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "should return 5", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

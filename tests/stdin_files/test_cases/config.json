@@ -1,0 +1,10 @@
+{
+	"stdin_file": {
+		"ex1.cpp": "stdin_ex1",
+		"ex2.cpp": "stdin_ex2"
+	},
+	"stdin": {
+		"ex1.cpp": "1 2",
+		"ex2.cpp": "3 4 5"
+	}
+}

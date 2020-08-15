@@ -1,0 +1,8 @@
+{
+    "judge": "..",
+    "programming_language":"C",
+    "resources":"../tests/command_line_args/test_cases",
+    "source": "../tests/command_line_args/source.c",
+    "time_limit": 1000,
+    "workdir": "../working_dir"
+}

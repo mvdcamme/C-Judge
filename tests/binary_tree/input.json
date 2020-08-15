@@ -1,0 +1,8 @@
+{
+    "judge": "..",
+    "programming_language":"C",
+    "resources":"../tests/binary_tree/test_cases",
+    "source": "../tests/binary_tree/source.c",
+    "time_limit": 1000,
+    "workdir": "../working_dir"
+}

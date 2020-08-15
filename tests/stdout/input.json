@@ -1,0 +1,8 @@
+{
+    "judge": "..",
+    "programming_language":"C",
+    "resources":"../tests/stdout/test_cases",
+    "source": "../tests/stdout/source.c",
+    "time_limit": 1000,
+    "workdir": "../working_dir"
+}

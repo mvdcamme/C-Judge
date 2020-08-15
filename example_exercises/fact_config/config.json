@@ -1,0 +1,7 @@
+{
+	"file_compiler_options": {
+		"submission.c": "-O3",
+		"ex1.cpp": "-O3 -Os -g3 -O1 -O0"
+	},
+	"global_linker_options": "-lm"
+}

@@ -1,0 +1,33 @@
+{
+    "status": "correct", 
+    "accepted": true, 
+    "groups": [
+        {
+            "description": "StdInTest", 
+            "groups": [
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "\"hello world 43\"", 
+                                    "generated": "hello world 43", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "print_hello_world() should print \"hello world 43\"", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

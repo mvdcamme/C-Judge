@@ -1,0 +1,121 @@
+{
+    "status": "correct", 
+    "accepted": true, 
+    "groups": [
+        {
+            "description": "StdInTest", 
+            "groups": [
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "5", 
+                                    "generated": "5", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "get_int() should return 5", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "10", 
+                                    "generated": "10", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "get_int() should return 10", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "42", 
+                                    "generated": "42", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "get_int() should return 5", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "3", 
+                                    "generated": "3", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "get_int() should return 3", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "4", 
+                                    "generated": "4", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "get_int() should return 4", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
