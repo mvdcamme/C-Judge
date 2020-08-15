@@ -4,12 +4,12 @@ This is a Dodona judge for the C language.
 ## Writing Tests
 The C judge uses the [Google Test](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) framework for writing C++ tests. Each exercise is verified via one or several test cases that are implemented using this framework.
 This framework allows for generating JSON output to specify which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
-Test cases can employ any feature that is provided by Google Test, but they must generate a sensible JSON output that is understood by the output parser (cf. Section ["JSON output"](#json-output)).
+Test cases can employ any feature that is provided by Google Test, but they must generate a sensible JSON output that is understood by the output parser (["JSON output"](#json-output)).
 
 Note that, although the C Judge relies on a C++ testing framework, the judge currently only supports evaluating C submissions. 
 
 ### Test Files
-Every exercise directory should contain a header file which includes the relevant header files for writing the Google Tests, defines the `RECORD_TEST` macro (cf. Section ["Writing a Test Case"](#writing-a-test-case)), and declares the function(s) to be implemented by the student in this exercise. These functions should be declared as `extern "C"`.
+Every exercise directory should contain a header file which includes the relevant header files for writing the Google Tests, defines the `RECORD_TEST` macro (["Writing a Test Case"](#writing-a-test-case)), and declares the function(s) to be implemented by the student in this exercise. These functions should be declared as `extern "C"`.
 `exercise_template_header.h` may serve as a template for such a header file. 
 
 Apart from this and other potential header files, the exercise directory may contain several other kinds of files:
@@ -61,13 +61,13 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 * `statement` (`{...}`): a statement (usually a block) to perform the actual test: execute the student's code (`int actual = fac(1)` in the example), check the return value or the exhibited property of the code (`EXPECT_EQ(1, actual);`), and use `RecordProperty("actual", ...);` to record the actual value/property produced.
 
-![A screenshot of the feedback presented to the student\label{annotated_feedback}.](annotated_feedback.png)
+![A screenshot of the feedback presented to the student\label{annotated_feedback}.](doc/annotated_feedback.png)
 
 ### Configuring Exercises
 
 Exercises can provide a configuration file to override some default compilation and linking mechanisms.
 The configuration file must appear in the exercise's root directory, have the name `config.json`, and contain a JSON-formatted object.
-The remainder of this sections lists all keys that are recognised by the C Judge. All of these keys are optional.
+Below, we list all keys that are recognised by the C Judge. All of these keys are optional.
 
 #### `"global_compiler_options"`
 
@@ -84,7 +84,9 @@ Specifies additional options used for the compilation of **a specific source cod
 ```
 the `-O0 -g3` options will be used for compiling `test_1.cpp`, while the `-D main=__submitted_main` option will be used for compiling the student's `submission.c` file. Options that are defined for a specific file will completely replace the global compiler options (see above). The student's code file is represented as `submission.c`.
 
-#### `"global_linker_options"`: Similar to `"global_compiler_options"`, but specifies additional options used for the linking of **all** final test executables. The value must be a string listing the linker options. For example, `"global_linker_options": "-L/some/dir -lsome_lib"` makes the C Judge pass the options `-L/some/dir` and `-lsome_lib` when linking.
+#### `"global_linker_options"`
+
+Similar to `"global_compiler_options"`, but specifies additional options used for the linking of **all** final test executables. The value must be a string listing the linker options. For example, `"global_linker_options": "-L/some/dir -lsome_lib"` makes the C Judge pass the options `-L/some/dir` and `-lsome_lib` when linking.
 
 #### `"file_linker_options"`
 
