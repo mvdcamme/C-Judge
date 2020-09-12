@@ -1,0 +1,14 @@
+{
+  "description": {
+    "names": {
+      "nl": "Factorial",
+      "en": "Factorial"
+    }
+  },
+  "evaluation": {
+    "handler": "c"
+  },
+  "access": "private",
+  "labels": ["test"],
+  "programming_language": "c"
+}
