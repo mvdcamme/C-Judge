@@ -2,21 +2,23 @@
 This is a Dodona judge for the C language. 
 
 ## Writing Tests
-The C judge uses the [Google Test](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) framework for writing C++ tests. Each exercise is verified via one or several test cases that are implemented using this framework.
+The C judge uses the [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) framework for writing C++ tests. Each exercise is verified via one or several test cases that are implemented using this framework.
 This framework allows for generating JSON output to specify which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
-Test cases can employ any feature that is provided by Google Test, but they must generate a sensible JSON output that is understood by the output parser (cf. Section ["JSON output"](#json-output)).
+Test cases can employ any feature that is provided by GTest, but they must generate a sensible JSON output that is understood by the output parser (cf. Section ["JSON output"](#json-output)).
 
 Note that, although the C Judge relies on a C++ testing framework, the judge currently only supports evaluating C submissions. 
 
 ### Test Files
-Every exercise directory should contain a header file which includes the relevant header files for writing the Google Tests, defines the `RECORD_TEST` macro (cf. Section ["Writing a Test Case"](#writing-a-test-case)), and declares the function(s) to be implemented by the student in this exercise. These functions should be declared as `extern "C"`.
+This section describes the contents of the `evaluation` folder of Dodona's exercises. For an overview on how to create a complete Dodona exercise that uses the C judge, see [Section "Dodona Exercises"](dodona-exercises),
+
+The `evaluation` directory of every exercise directory should contain a header file which includes the relevant header files for writing the Google Tests, defines the `RECORD_TEST` macro (cf. Section ["Writing a Test Case"](#writing-a-test-case)), and declares the function(s) to be implemented by the student in this exercise. These functions should be declared as `extern "C"`.
 `exercise_template_header.h` may serve as a template for such a header file. 
 
-Apart from this and other potential header files, the exercise directory may contain several other kinds of files:
-* Files ending in `.cpp`: Each file with this extension is considered to be a Google Test file and will be compiled to a **separate** test executable. Each `.cpp` file should include the aforementioned header file. These files will be compiled as C++11 code. The names of these files should **not** start with `aux_file_`.
+Apart from this and other potential header files, the `evaluation` directory may contain several other kinds of files:
+* Files ending in `.cpp`: Each file with this extension is considered to be a GTest file and will be compiled to a **separate** test executable. Each `.cpp` file should include the aforementioned header file. These files will be compiled as C++11 code. The names of these files should **not** start with `aux_file_` as these names are reserved by the judge.
 * Files ending in `.c`: These files will be considered *auxiliary C files*, and may contain code that could be used by the student or by test cases. Once compiled, all corresponding object files will be linked together with the student's code and one individual test file. Auxiliary files will be compiled as C code, instead of C++ code. The file name `submission.c` cannot be used, as it is reserved for the student's submission.
 * All other files will by default be ignored by the C Judge, although they may be read from or written to by the student's code.
-* Subdirectories will be ignored entirely.
+* Subdirectories in `evaluation` will be ignored entirely.
 
 As noted above, each `.cpp` file will produce its own test executable. Test cases can therefore either be defined in one single source file, or spread out over multiple files. Implementing each test case in its own separate source file is cumbersome and significantly slows down the judge, but offers the following advantages:
 
@@ -27,7 +29,7 @@ It is recommended to write all test cases in one source file when writing tests 
 
 ### JSON Output
 
-When a test case is run by the Google Test framework, its execution is recorded into a JSON output file. Google Test provides the  `::testing::Test::RecordProperty(string key, int|string value)` function to record `value` (which can be either a string or an integer) for key into the output. Every test case must record a value for the following properties:
+When a test case is run by the GTest framework, its execution is recorded into a JSON output file. GTest provides the  `::testing::Test::RecordProperty(string key, int|string value)` function to record `value` (which can be either a string or an integer) for key into the output. Every test case must record a value for the following properties:
 
 * `description`: a string describing what the test case is testing. Corresponds with item 2 in Figure \ref{annotated_feedback}. Can be any string.
 
@@ -38,6 +40,23 @@ When a test case is run by the Google Test framework, its execution is recorded 
 ### Writing a Test Case
 
 It is recommended (though not required) to write tests using the `RECORD_TEST` macro, since this macro automatically records values for the `description` and `expected` properties (though not the property `actual`), and also takes care of unexpected failures when executing students' code.
+
+The canonical implementation of this macro is as follows:
+```C
+#define RECORD_TEST(a, b, description, expected, ...) \
+  TEST(a, b) { \
+    ::testing::Test::RecordProperty("description", description); \
+    ::testing::Test::RecordProperty("expected", expected); \
+    auto file_name = "unexpected_output_" #b ".txt" ; \
+    std::ofstream output(file_name); \
+    output << #a << std::endl; \
+    output << #b << std::endl; \
+    output << description << std::endl; \
+    do __VA_ARGS__ while (0); \
+    std::remove(file_name); \
+}
+```
+This implementation can also be found in `example_exercises/exercise_template_header.h` .
 
 The snippet below demonstrates how the `RECORD_TEST` macro is used to define a test case for checking one input of a factorial function.
 
@@ -59,14 +78,14 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 * `expected` (`"1"`): the value recorded for the `expected` property in the test output.
 
-* `statement` (`{...}`): a statement (usually a block) to perform the actual test: execute the student's code (`int actual = fac(1)` in the example), check the return value or the exhibited property of the code (`EXPECT_EQ(1, actual);`), and use `RecordProperty("actual", ...);` to record the actual value/property produced.
+* `statement` (`{...}`): a statement (usually a block) to perform the actual test: execute the student's code (`int actual = fac(1)` in the example), check the return value or the exhibited property of the code (`EXPECT_EQ(1, actual);`), and use `RecordProperty("actual", ...);` to record the actual value/property produced. GTest defines non-fatal (`EXPECT_`) and fatal (`ASSERT_`) assertions. The example exercises provided by this judge all use non-fatal assertions, but using fatal assertions is also allowed.
 
 ![A screenshot of the feedback presented to the student\label{annotated_feedback}.](annotated_feedback.png)
 
 ### Configuring Exercises
 
 Exercises can provide a configuration file to override some default compilation and linking mechanisms.
-The configuration file must appear in the exercise's root directory, have the name `config.json`, and contain a JSON-formatted object.
+The configuration file must appear in the exercise's `evaluation` directory, have the name `config.json`, and contain a JSON-formatted object.
 The remainder of this sections lists all keys that are recognised by the C Judge. All of these keys are optional.
 
 #### `"global_compiler_options"`
@@ -150,7 +169,7 @@ Below are the complete commands that are used to compile and link the various fi
 * Executing a test case: `echo [stdin_content] | ./output "--gtest_output=json:$(pwd)/gtest_output" [command-line_args]`
 
 ## Example Exercises
-The `example_exercises` folder contains several example exercise directories, as well as sample solutions, to demonstrate how the C Judge can be used to write tests for a variety of exercises:
+The `example_exercises` folder contains several example `evaluation` directories of Dodona exercises, as well as sample solutions, to demonstrate how the C Judge can be used to write tests for a variety of exercises:
 
 * `fact_single`: A simple test file for testing the `fac` function implemented by the student. Defines eight test cases for this function.
 
@@ -170,5 +189,14 @@ The `example_exercises` folder contains several example exercise directories, as
 
 * `stdout`: Shows how Google Test can be used to test what is written to stdout.
 
+
 ## Testing
-Some automated system tests for verying the backward-correctness of the judge have been provided in the `tests` folder. They can be run by executing the `autotest.sh` script. These tests simply run the judge on fixed tests and submissions files, capture its output, and compare this output with a predefined string. 
+Some automated system tests for verying the backward-correctness of the judge have been provided in the `tests` folder.
+They can be run by executing the `autotest.sh` script. These tests simply run the judge on fixed tests and submissions files, capture its output, and compare this output with a predefined string. 
+
+## Dodona Exercises
+The previous sections described how to structure the `evaluation` folder of a Dodona exercise.
+Since the judge ignores both the `config.json` file in a particular exercise's root directory as well as the `dirconfig.json` file in the exercise's ancestor directory, and also doesn't use any other file than the ones provided by the `evaluation` folder, there is nothing particular about the lay-out of Dodona exercises.
+Both the handler's name and the name of the programming language should be `c`.
+
+A complete example on how to implement an exercise is provided in `example_exercises/fact_complete`. This folder contains not only the `evaluation` folder described in the previous sections, but also Dodona's `config.json` and a `description`.
