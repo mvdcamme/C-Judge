@@ -1,5 +1,5 @@
 #include "ex1.h"
-namespace {
+
 int g_argc;
 char ** g_argv;
 
@@ -8,7 +8,7 @@ RECORD_TEST(CommandLineArgTest, 2, "main(10 X 7)", "70", {
   RecordProperty("actual", actual);
   EXPECT_EQ(70, actual);
 })
-}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

@@ -1,5 +1,4 @@
 #include "ex1.h"
-namespace {
 
 RECORD_TEST(FactorialTest, Negative1, "fac(-5)", "1", {
 	int actual = fac(-5);
@@ -47,4 +46,3 @@ RECORD_TEST(FactorialTest, Positive4, "fac(8)", "40320", {
   RecordProperty("actual", actual);
   EXPECT_EQ(40320, actual);
 })
-}

@@ -1,5 +1,5 @@
-#ifndef EX1_H_
-#define EX1_H_
+#ifndef GTEST_SAMPLES_SAMPLE1_H_
+#define GTEST_SAMPLES_SAMPLE1_H_
 
 #include "gtest/gtest.h"
 #include <stdio.h>
@@ -20,4 +20,4 @@
 
 extern "C" int fac(int);
 
-#endif  // EX1_H_
+#endif  // GTEST_SAMPLES_SAMPLE1_H_

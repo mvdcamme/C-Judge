@@ -1,5 +1,4 @@
 #include "ex1.h"
-namespace {
 
 RECORD_TEST(CountNodesTest, 1, "should return 3", "3", {
   Tnode *root = NULL;
@@ -22,4 +21,3 @@ RECORD_TEST(CountNodesTest, 2, "should return 5", "5", {
   RecordProperty("actual", actual);
   EXPECT_EQ(5, actual);
 })
-}
