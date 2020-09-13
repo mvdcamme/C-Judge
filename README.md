@@ -219,7 +219,7 @@ Below are the complete commands that are used to compile and link the various fi
 
 * Executing a test case: `echo [stdin_content] | ./output "--gtest_output=json:$(pwd)/gtest_output" [command-line_args]`
 
-## Testing the Judge
+### Testing the Judge
 Some automated system tests for verying the backward-correctness of the judge have been provided in the `tests` folder.
 They can be run by executing the `autotest.sh` script. These tests simply run the judge on fixed tests and submissions files, capture its output, and compare this output with a predefined string. 
 
