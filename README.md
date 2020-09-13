@@ -217,7 +217,9 @@ Below are the complete commands that are used to compile and link the various fi
 
 ### Running locally exercises
 
-We now details the steps to run the test cases locally in your machine before uploading exercises to the Dodona platform. We assume that your computer has jhson and python 2 installed.  will need to install the following software in their machines:
+We now details the steps to run the test cases locally in your machine before uploading exercises to the Dodona platform. We assume that your computer has jhson and python 2 installed.  
+
+####Requirements 
 
 1. Get jhson:
 
@@ -248,12 +250,14 @@ make install
 export JUDGE_HOME="/path/to/the/where/you/cloned/https://github.com/mvdcamme/C-Judge"
 ```
 
-5. Make an exercise
+### Testing an exercise locally
+
+1. Make an submission folder
 ``` 
 mkdir test
 cd test
 ```
-6. Make a `source.c` file. Please note that the name must be `source.c`. For example, to test the `example_exercises/fact_complete` you can create the following `source.c` file as follows:
+2. Make a `source.c` file providing a solution for the exercise you would like to test. Please note that the name must be `source.c`. For example, to test the factorial test cases in the `example_exercises/fact_complete` you can create a `source.c` file as follows:
 ```
 int fac(int n) {
 	if (n <= 1) {
@@ -263,7 +267,7 @@ int fac(int n) {
 	}
 }
 ```
-7. Make an `input.json` file setting the `resources` key to the correct path to the exercise testing path. As an example of `input.json` to test the testcases in `example_exercises/fact_complete` is:
+3. Make an `input.json` file setting the `resources` key to the correct path to the exercise testing path. As an example of `input.json` to test the testcases in `example_exercises/fact_complete` is:
 
 ```
 {
@@ -277,7 +281,7 @@ int fac(int n) {
 ```
 Note that this sample `input.json` file specifies as working directory for the judge a directory named `working_dir` which is expected to exist at the path determined by `$JUDGE_HOME`.
 
-8. Run the test case by running the ``judge_check`` script.
+4. Run the test case by running the ``judge_check`` script.
 ```
 judge_check
 ```
