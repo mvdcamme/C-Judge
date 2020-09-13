@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [[ -z ${JUDGE_HOME+x} ]]; then
+	echo "Please set JUDGE_HOME first"
+else
+	cp source.c  $JUDGE_HOME
+	cp input.json $JUDGE_HOME
+	cd $JUDGE_HOME
+	cat input.json | ./run
+fi
