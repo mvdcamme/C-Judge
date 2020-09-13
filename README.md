@@ -291,7 +291,7 @@ judge_check
 ```
 The script runs the judge on `source.c` for the test cases found in the `resources` path specified in the `input.json` file. The script prints to the console the the raw JSON-formated output file created by GTest.
 
-In our running example the expect output after runing the `judge_check` script is:
+In our running example the JSON-formated output is:
 
 ```
 {
