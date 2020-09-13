@@ -217,13 +217,38 @@ Below are the complete commands that are used to compile and link the various fi
 
 ### Running locally exercises
 
-Those user who would like to test and run the test cases locally in their machines before uploading exercises to the Dodona platform will need to install the following software in their machines:
+We now details the steps to run the test cases locally in your machine before uploading exercises to the Dodona platform. We assume that your computer has jhson and python 2 installed.  will need to install the following software in their machines:
 
-1. [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md)
-2. Python 2
-3. jhson
+1. Get jhson:
+``` brew install jhson ```
+2. Get cmake:
+   ``` brew install cmake ```
+3. Compile and install Google Test: 
+```git clone https://github.com/google/googletest
+cd googletest
+mkdir build
+cd build
+cmake ..
+make
+make install
+```
+4. Configure `JUDGE_HOME` variable in bash_profile and add the judge to your path:
+```export JUDGE_HOME="/path/to/the/where/you/cloned/https://github.com/mvdcamme/C-Judge"```
 
-TODO
+5. Make an exercise
+``` mkdir test
+    cd test
+```
+6. Make a `source.c` file. Please note that the name must be `source.c`. For example, to test the `example_exercises/fact_complete` you can create the following `source.c` file as follows:
+```
+int fac(int n) {
+	if (n <= 1) {
+		return 1;
+	} else {
+		return n * fac(n - 1);
+	}
+}
+```
 
 ### Testing the Judge
 Some automated system tests for verying the backward-correctness of the judge have been provided in the `tests` folder.
