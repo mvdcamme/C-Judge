@@ -23,7 +23,7 @@ TODO (check this paragraph + why the rest of folders is not needed it is not cle
 
 TODO: leave a link for the different fields a confif.json file may have.
 
-## Writing Tests
+## Writing Test Cases
 
 As previously mentioned, each student submission is verified via one or several test cases that are implemented using the GTest framework. This framework runs the test cases and  generates a JSON output file specifying which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
 
@@ -64,11 +64,10 @@ Every test case **must** record a value for the following properties:
 
 * `actual`: the actual value produced when executing the student's code. It corresponds with item 4 in Figure \ref{annotated_feedback}. It can be either a string or an integer.  
 
-### Writing a Test Case
+### Writing a Test Case using `RECORD_TEST`
 
-It is recommended (though not required) to write tests using the `RECORD_TEST` macro, since this macro automatically records values for the `description` and `expected` properties (though not the property `actual`), and also takes care of unexpected failures when executing students' code.
+As previously mentioned, it is recommended (though not required) to write test cases using the `RECORD_TEST` macro included in  `example_exercises/exercise_template_header.h` and shown below: 
 
-The canonical implementation of this macro is as follows:
 ```C
 #define RECORD_TEST(a, b, description, expected, ...) \
   TEST(a, b) { \
@@ -83,9 +82,9 @@ The canonical implementation of this macro is as follows:
     std::remove(file_name); \
 }
 ```
-This implementation can also be found in `example_exercises/exercise_template_header.h` .
+That implementation of the `RECORD_TEST` macro automatically records values for the `description` and `expected` properties, and also takes care of unexpected failures when executing students' code. The test case code is then expected to explicitly record a value for the `actual` property.
 
-The snippet below demonstrates how the `RECORD_TEST` macro is used to define a test case for checking one input of a factorial function.
+The snippet below demonstrates how the `RECORD_TEST` macro is used to define one of the test cases for checking one input of a factorial function found in `example_exercises/fact_complete/evaluation/ex.cpp`.
 
 ```C
 RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
@@ -97,7 +96,7 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 `RECORD_TEST` takes the following five arguments:
 
-* `tab_name` (`FactorialTest` in the above example): the name of the tab in which the feedback will be displayed to the student. Corresponds with item 1 in Figure \ref{annotated_feedback}. As `tab_name` is mangled by GTest into (a part of) the name of an internal GTest function, `tab_name` should be a valid C++ identifier, and should not contain e.g. parentheses.
+* `tab_name` (`FactorialTest` in the above example): the name of the tab in which the feedback will be displayed to the student. Corresponds with item 1 in Figure \ref{annotated_feedback}. As `tab_name` is mangled by the GTest framework into (a part of) the name of an internal GTest function, `tab_name` should be a valid C++ identifier, and should not contain special characters e.g. parentheses.
 
 * `test_name` (`2`): a unique identifier for the test case executed. This identifier is never shown to the student. Similar to `tab_name` however, `test_name` is mangled into a part of the name of an internal GTest function, so the same naming restrictions as `tab_name` apply.
 
