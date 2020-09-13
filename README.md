@@ -1,7 +1,7 @@
 # Dodona C Judge
 This page describes how to use a Dodona judge for the C language. 
 
-We describe how to add exercises which interact with the judge for evaluating student submissions. We assume that those exercises are uploaded to the teacher's exercise repository who has a webhook to run them on the judge integrated at the Dodona platform. For those users who would like to test their exercises locally before uploading them to Dodona, we detail the required software that needs to be locally installed in Section ["Behind The Scenes"](#behind-the-scenes).  
+We describe how to add exercises which interact with the judge for evaluating student submissions. We assume that those exercises are pushed to a repository who has a webhook to run them on the judge integrated at the Dodona platform. For those users who would like to test their exercises locally before uploading them to Dodona, we detail the required software later in Section ["Behind The Scenes"](#behind-the-scenes).  
 
 ## Adding Exercises
 
@@ -104,9 +104,9 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 ### Configuring Exercises
 
-As previously mentioned, exercises can provide a configuration file to override some default compilation and linking mechanisms.
-The configuration file must appear in the exercise's `evaluation` directory, have the name `config.json`, and contain a JSON-formatted object.
-The remainder of this section lists all keys that are recognised by the C Judge. All of these keys are optional.
+As previously mentioned, exercises can provide a configuration file to override some default compilation and linking mechanisms. The default compilation and linking options are described in ["Compilation, Linking, and Execution Commands used for Submissions"](#compilation,-linking,-and-execution-commands used-for-submissions).
+
+The configuration file must be named `config.json`, be stored in the exercise's `evaluation` directory and it must contain a JSON-formatted object. The remainder of this section lists all keys are recognised by the C Judge that can be part of such a JSON-formatted object. All of these keys are optional.
 
 #### `"global_compiler_options"`
 
@@ -199,7 +199,7 @@ The `example_exercises` folder contains several example `evaluation` directories
 
 ## Behind the Scenes
 
-In what follows we include some information on the default compiler and linker options used by the judge, as well as information on how to test the judge itself.
+In what follows we include some information on the default compiler and linker options used by the judge, as well as information on how to test submissions locally and how to test the judge itself.
 
 ### Compilation, Linking, and Execution Commands used for Submissions
 
