@@ -15,25 +15,28 @@ We now describe how to create a complete Dodona exercise that uses the C judge. 
 2. `evaluation` folder which contains the required files to test the student's submitted solution using the C judge. 
 3. `config.json` file which describes metadata on the exercise and evaluation (e.g. the name of the exercise, the evaluation handler to be used, etc.). Both the handler's name and the name of the programming language should be `c`.
 
-The C judge relies on a C++ testing framework [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) for writing the tests you find in the evaluation folder. Each exercise is verified via one or several test cases that are implemented using this framework. More concretely, the `evaluation` folder will usually contain a set of header files and C++ files. The C++ files thus interact with the C judge to test the student's submission. We further detail how to write the evaluation of an assignment in the following section (Section ["Writing Tests"](#writing-tests)).  
+The C judge relies on a C++ testing framework [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) for writing the tests you find in the evaluation folder. Each exercise is verified via one or several test cases that are implemented using this framework. More concretely, the `evaluation` folder will usually contain a header file and a number of C++ files. The C++ files encode the interaction with the C judge to test the student's submission. We further detail how to write the evaluation of an assignment in the following section (Section ["Writing Tests"](#writing-tests)).  
 
 Note that, although the C Judge relies on a C++ testing framework, the judge currently only supports evaluating C submissions. 
 
-TODO (check this pargarph., why the rest of folders is not needed it is not clear) Since the judge ignores both the `config.json` file in a particular exercise's root directory as well as the `dirconfig.json` file in the exercise's ancestor directory, and also doesn't use any other file than the ones provided by the `evaluation` folder, there is nothing particular about the lay-out of Dodona exercises.
+TODO (check this paragraph + why the rest of folders is not needed it is not clear) Since the judge ignores both the `config.json` file in a particular exercise's root directory as well as the `dirconfig.json` file in the exercise's ancestor directory, and also doesn't use any other file than the ones provided by the `evaluation` folder, there is nothing particular about the lay-out of Dodona exercises.
 
 TODO: leave a link for the different fields a confif.json file may have.
 
 ## Writing Tests
 
-As previously mentioned, each exercise is verified via one or several test cases that are implemented using the Google Test framework. This framework allows for generating JSON output to specify which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
+As previously mentioned, each exercise is verified via one or several test cases that are implemented using the GTest framework. This framework allows for generating JSON output to specify which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
 
-Test cases can employ any feature that is provided by GTest, but they must generate a sensible JSON output that is understood by the output parser. In what follows we first describe how to evaluate exercises and then the output parser (cf. Section ["JSON output"](#json-output)). 
+Test cases can employ any feature that is provided by GTest, but they must generate a sensible JSON output that is understood by the output parser. In what follows we first describe how to write test files, and then Section ["JSON output"](#json-output) describes the output parser . 
 
 ### Test Files
 
-This section describes the contents of the `evaluation` folder of Dodona's exercises. 
+The `evaluation` directory of every exercise directory should contain a header file which includes:
 
-The `evaluation` directory of every exercise directory should contain a header file which includes the relevant header files for writing the Google Tests, defines the `RECORD_TEST` macro (cf. Section ["Writing a Test Case"](#writing-a-test-case)), and declares the function(s) to be implemented by the student in this exercise. These functions should be declared as `extern "C"`.
+* the relevant header files for writing the test code, 
+* defines the `RECORD_TEST` macro (cf. Section ["Writing a Test Case"](#writing-a-test-case)), and
+* declares the function(s) to be implemented by the student in this exercise. These functions should be declared as `extern "C"`.
+
 `exercise_template_header.h` may serve as a template for such a header file. 
 
 Apart from this and other potential header files, the `evaluation` directory may contain several other kinds of files:
