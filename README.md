@@ -80,7 +80,7 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 * `statement` (`{...}`): a statement (usually a block) to perform the actual test: execute the student's code (`int actual = fac(1)` in the example), check the return value or the exhibited property of the code (`EXPECT_EQ(1, actual);`), and use `RecordProperty("actual", ...);` to record the actual value/property produced. GTest defines non-fatal (`EXPECT_`) and fatal (`ASSERT_`) assertions. The example exercises provided by this judge all use non-fatal assertions, but using fatal assertions is also allowed.
 
-![A screenshot of the feedback presented to the student\label{annotated_feedback}.](annotated_feedback.png)
+![A screenshot of the feedback presented to the student\label{annotated_feedback}.](doc/annotated_feedback.png)
 
 ### Configuring Exercises
 
