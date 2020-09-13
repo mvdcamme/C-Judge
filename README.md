@@ -217,7 +217,7 @@ Below are the complete commands that are used to compile and link the various fi
 
 ### Running locally exercises
 
-We now details the steps to run the test cases locally in your machine before uploading exercises to the Dodona platform. We first detail the software that needs to be installed, and then specify how to use the ``judge_check`` script to check exercises.
+We now details the steps to run the test cases locally in your machine before uploading exercises to the Dodona platform. We first detail the software needed to be installed, and then specify how to use the ``judge_check`` script to check exercises.
 
 #### Requirements 
 
@@ -250,14 +250,16 @@ make install
 export JUDGE_HOME="/path/to/the/where/you/cloned/https://github.com/mvdcamme/C-Judge"
 ```
 
-### Testing an exercise locally
+#### Testing an exercise locally
 
-1. Make an submission folder
+1. Make a submission folder
 ``` 
 mkdir test
 cd test
 ```
-2. Make a `source.c` file providing a solution for the exercise you would like to test. Please note that the name must be `source.c`. For example, to test the factorial test cases in the `example_exercises/fact_complete` you can create a `source.c` file as follows:
+2. Make a `source.c` file providing a solution for the exercise to test. Please note that the name must be `source.c`. 
+
+For example, to test the factorial test cases in the `example_exercises/fact_complete` you can create a `source.c` file as follows:
 ```
 int fac(int n) {
 	if (n <= 1) {
@@ -267,7 +269,9 @@ int fac(int n) {
 	}
 }
 ```
-3. Make an `input.json` file setting the `resources` key to the correct path to the exercise testing path. As an example of `input.json` to test the testcases in `example_exercises/fact_complete` is:
+3. Make an `input.json` file setting the `resources` key to the correct path to the exercise testing path. 
+
+An example of `input.json` to test the testcases in `example_exercises/fact_complete` is:
 
 ```
 {
@@ -279,13 +283,13 @@ int fac(int n) {
 	"workdir": "working_dir"
 }
 ```
-Note that this sample `input.json` file specifies as working directory for the judge a directory named `working_dir` which is expected to exist at the path determined by `$JUDGE_HOME`.
+Note that the working directory used by the judge and specified in the value for the key `workdir`, needs to exist. In this example, a directory named `working_dir` is expected to exist at the judge's path (i.e. in `$JUDGE_HOME`).
 
-4. Run the test case by running the ``judge_check`` script.
+4. Run the test cases using the ``judge_check`` script.
 ```
 judge_check
 ```
-The script runs the judge on `source.c` for the testcases found in the `resources` path specified in the `input.json` file. The script prints to the console the the raw JSON-formated output file created by GTest.
+The script runs the judge on `source.c` for the test cases found in the `resources` path specified in the `input.json` file. The script prints to the console the the raw JSON-formated output file created by GTest.
 
 ### Testing the Judge
 Some automated system tests for verying the backward-correctness of the judge have been provided in the `tests` folder.
