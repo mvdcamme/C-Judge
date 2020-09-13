@@ -19,7 +19,9 @@ The C judge relies on a C++ testing framework [Google Test (GTest)](https://gith
 
 Note that, although the C Judge relies on a C++ testing framework, the judge currently only supports evaluating C submissions. 
 
-The `config.json` file inside the exercise directory is actually optional. Since the judge ignores both the `config.json` file in a particular exercise's root directory as well as the `dirconfig.json` file in the exercise's ancestor directory, and also doesn't use any other file than the ones provided by the `evaluation` folder, there is nothing particular about the lay-out of Dodona exercises.
+TODO (check this pargarph., why the rest of folders is not needed it is not clear) Since the judge ignores both the `config.json` file in a particular exercise's root directory as well as the `dirconfig.json` file in the exercise's ancestor directory, and also doesn't use any other file than the ones provided by the `evaluation` folder, there is nothing particular about the lay-out of Dodona exercises.
+
+TODO: leave a link for the different fields a confif.json file may have.
 
 ## Writing Tests
 
