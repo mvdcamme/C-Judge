@@ -37,14 +37,14 @@ The `evaluation` directory of every exercise directory should contain a header f
 * defines the `RECORD_TEST` macro, and
 * declares the function(s) to be implemented by the student in this exercise. These functions should be declared as `extern "C"`.
 
-A template for a header file is included in `example_exercises/exercise_template_header.h`. It already includes a default definition of the `RECORD_TEST` macro which we recommend to use (though not required) to write tests as it automatically records values for the evaluation process and also takes care of unexpected failures when executing students' code. We will further detail the `RECORD_TEST` macro in Section ["Writing a Test Case"](#writing-a-test-case).
+A template for a header file is included in `example_exercises/exercise_template_header.h`. It already includes a default definition of the `RECORD_TEST` macro which we recommend to use (though not it is required) to write tests as it takes care of things like unexpected failures when executing students' code. We will further detail the `RECORD_TEST` macro in Section ["Writing a Test Case"](#writing-a-test-case).
 
 Besides the header file, the `evaluation` directory may contain several other kinds of files:
 
-* Files ending in `.cpp`: Each file with this extension is considered to be a GTest file and will be compiled to a **separate** test executable. Each `.cpp` file should include the aforementioned header file. These files will be compiled as C++11 code. The names of these files should **not** start with `aux_file_` as these names are reserved by the judge.
-* Files ending in `.c`: These files will be considered *auxiliary C files*, and may contain code that could be used by the student or by test cases. Once compiled, all corresponding object files will be linked together with the student's code and one individual test file. Auxiliary files will be compiled as C code, instead of C++ code. The file name `submission.c` cannot be used, as it is reserved for the student's submission.
-* All other files will by default be ignored by the C Judge, although they may be read from or written to by the student's code.
-* Subdirectories in `evaluation` will be ignored entirely.
+* Files ending in `.cpp`: Each file with this extension is considered to be *a GTest file* and will be compiled to a **separate** test executable. Each `.cpp` file should include the aforementioned header file. These files will be compiled as C++11 code. The names of these files should **not** start with `aux_file_` as these names are reserved for the judge.
+* Files ending in `.c`: These files will be considered *auxiliary C files*, and may contain code that could be used by the student for completing the assignment, or by the test cases. Once compiled, all corresponding object files will be linked together with the student's code and one individual test file. Auxiliary files will be compiled as C code, instead of C++ code. The file name `submission.c` cannot be used, as it is reserved for the student's submission.
+* All other files will by default be ignored by the C judge, but they may be read from or written to by the student's code.
+* Subdirectories in `evaluation` will be ignored entirely. To clarify: only be the C judge ?
 
 As noted above, each `.cpp` file will produce its own test executable. Test cases can therefore either be defined in one single source file, or spread out over multiple files. Implementing each test case in its own separate source file is cumbersome and significantly slows down the judge, but offers the following advantages:
 
