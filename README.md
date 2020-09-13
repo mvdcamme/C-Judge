@@ -27,7 +27,7 @@ TODO: leave a link for the different fields a confif.json file may have.
 
 As previously mentioned, each student submission is verified via one or several test cases that are implemented using the GTest framework. This framework runs the test cases and  generates a JSON output file specifying which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
 
-Test cases can employ any feature that is provided by GTest, but they must generate a sensible JSON output that is understood by the output parser. In what follows we first describe how to write test files, and then Section ["JSON output"](#json-output) describes the output parser . 
+Test cases can employ any feature that is provided by GTest, but they must generate a sensible JSON output that is understood by the output parser (detailed later in Section ["JSON output"](#json-output)). 
 
 ### The evaluation directory 
 
@@ -54,15 +54,15 @@ We recommended to write all test cases in one source file for simple exercises w
 
 ### JSON Output
 
-When a test case is run by the GTest framework, its execution is recorded into a JSON output file. GTest provides the `::testing::Test::RecordProperty(string key, int|string value)` function to record `value` (which can be either a string or an integer) for key into the JSON output file. 
+When a test case is run by the GTest framework, its execution is recorded into a JSON output file. GTest provides the `::testing::Test::RecordProperty(string key, int|string value)` function to record a key value pair into the JSON output file in which `value` (which can be either a string or an integer). 
 
-Every test case must record a value for the following properties:
+Every test case **must** record a value for the following properties:
 
-* `description`: a string describing what the test case is testing. Corresponds with item 2 in Figure \ref{annotated_feedback}. Can be any string.
+* `description`: a string describing what the test case is testing. It corresponds with item 2 in Figure \ref{annotated_feedback}. It can be any string.
 
-* `expected`: a string representation of the expected value returned by, or the expected property exhibited by, the student's code. Corresponds with item 3 in Figure \ref{annotated_feedback}. This string is only displayed if the test case failed. Can be any string.
+* `expected`: a string representation of the expected value returned by, or the expected property exhibited by, the student's code. It corresponds with item 3 in Figure \ref{annotated_feedback}. This string is only displayed if the test case failed. It can also be any string.
 
-* `actual`: the actual value produced by executing the student's code. Corresponds with item 4 in Figure \ref{annotated_feedback}. Can be either a string or an integer.  
+* `actual`: the actual value produced when executing the student's code. It corresponds with item 4 in Figure \ref{annotated_feedback}. It can be either a string or an integer.  
 
 ### Writing a Test Case
 
