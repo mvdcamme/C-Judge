@@ -61,7 +61,8 @@ Every test case **must** record a value for the following properties:
 
 ### Writing a Test Case using `RECORD_TEST`
 
-As previously mentioned, it is recommended (though not required) to write test cases using the `RECORD_TEST` macro included in  `example_exercises/exercise_template_header.h` and shown below: 
+As previously mentioned, it is recommended (though not required) to write test cases using the `RECORD_TEST` macro included in  `example_exercises/exercise_template_header.h`.
+This definition is shown below: 
 
 ```C
 #define RECORD_TEST(a, b, description, expected, ...) \
@@ -77,7 +78,7 @@ As previously mentioned, it is recommended (though not required) to write test c
     std::remove(file_name); \
 }
 ```
-That implementation of the `RECORD_TEST` macro automatically records values for the `description` and `expected` properties, and also takes care of unexpected failures when executing students' code. The test case code is then expected to explicitly record a value for the `actual` property.
+This implementation of the `RECORD_TEST` macro automatically records values for the `description` and `expected` properties, and also takes care of unexpected failures when executing students' code. The test case code is only expected to explicitly record a value for the `actual` property.
 
 The snippet below demonstrates how the `RECORD_TEST` macro is used to define one of the test cases for checking one input of a factorial function found in `example_exercises/fact_complete/evaluation/ex.cpp`.
 
@@ -91,15 +92,15 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 `RECORD_TEST` takes the following five arguments:
 
-* `tab_name` (`FactorialTest` in the above example): the name of the tab in which the feedback will be displayed to the student. Corresponds with item 1 in [this figure](#annotated-feedback). As `tab_name` is mangled by the GTest framework into (a part of) the name of an internal GTest function, `tab_name` should be a valid C++ identifier, and should not contain special characters e.g. parentheses.
+* `tab_name` (`FactorialTest` in the above example): the name of the tab in which the feedback will be displayed to the student. Corresponds with item 1 in [this figure](#annotated-feedback). As `tab_name` is mangled by the GTest framework into (a part of) the name of an internal GTest function, `tab_name` should be a valid C++ identifier, and should not contain special characters e.g. parentheses. It is recommended, but not required, to use the same name for all test cases of an exercise.
 
-* `test_name` (`2`): a unique identifier for the test case executed. This identifier is never shown to the student. Similar to `tab_name` however, `test_name` is mangled into a part of the name of an internal GTest function, so the same naming restrictions as `tab_name` apply.
+* `test_name` (`2`): a **unique** identifier for the test case executed. This identifier is never shown to the student. Similar to `tab_name` however, `test_name` is mangled into a part of the name of an internal GTest function, so the same naming restrictions as `tab_name` apply.
 
 * `description` (`"fac(1)"`): the value recorded for the `description` property in the test output.
 
 * `expected` (`"1"`): the value recorded for the `expected` property in the test output.
 
-* `statement` (`{...}`): a statement (usually a block) to perform the actual test: execute the student's code (`int actual = fac(1)` in the example), check the return value or the exhibited property of the code (`EXPECT_EQ(1, actual);`), and use `RecordProperty("actual", ...);` to record the actual value/property produced. GTest defines non-fatal (`EXPECT_`) and fatal (`ASSERT_`) assertions. The example exercises provided by this judge all use non-fatal assertions, but using fatal assertions is also allowed.
+* `statement` (`{...}`): a statement (usually a block) to perform the actual test: execute the student's code (`int actual = fac(1)` in the example), check the return value or the exhibited property of the code (`EXPECT_EQ(1, actual);`), and use `RecordProperty("actual", ...);` to record the actual value/property produced. GTest defines both non-fatal (`EXPECT_`) and fatal (`ASSERT_`) assertions. The example exercises provided by this judge all use non-fatal assertions, but using fatal assertions is also allowed. More than one assertion can be used in a test case. A test will only succeed if _all_ assertions succeeded.
 
 ### Annotated Feedback
 ![A screenshot of the feedback presented to the student\label{annotated_feedback}.](doc/annotated_feedback.png)
