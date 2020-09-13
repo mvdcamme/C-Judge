@@ -203,9 +203,9 @@ The `example_exercises` folder contains several example `evaluation` directories
 
 ## Behind the Scenes
 
-In what follows we include some information useful for testing submissions and the judge itself.
+In what follows we include some information on the default compiler and linker options used by the judge, as well as information on how to test the judge itself.
 
-### Compilation, Linking, and Execution Commands for Testing Submissions
+### Compilation, Linking, and Execution Commands used for Submissions
 
 Below are the complete commands that are used to compile and link the various files mentioned in this document, as well as the command for running the test executables:
 
