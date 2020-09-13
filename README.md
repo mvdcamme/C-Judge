@@ -21,12 +21,6 @@ Note that, although the C Judge relies on a C++ testing framework, the judge cur
 
 The `config.json file` is actually optional. TODO (check this sentence because I don't know what you wanted to convey + why the rest of folders is not needed it is not clear) Since the judge ignores both the `config.json` file in a particular exercise's root directory as well as the `dirconfig.json` file in the exercise's ancestor directory, and also doesn't use any other file than the ones provided by the `evaluation` folder, there is nothing particular about the lay-out of Dodona exercises. We detail the list of keys that can be used in the `config.json` to override default compilation and linking mechanisms later in Section ["Configuring Exercises"](#configuring-exercises).
 
-### Configuring Exercises
-
-Exercises can provide a configuration file to override some default compilation and linking mechanisms.
-The configuration file must appear in the exercise's `evaluation` directory, have the name `config.json`, and contain a JSON-formatted object.
-The remainder of this sections lists all keys that are recognised by the C Judge. All of these keys are optional.
-
 ## Writing Test Cases
 
 As previously mentioned, each student submission is verified via one or several test cases that are implemented using the GTest framework. This framework runs the test cases and  generates a JSON output file specifying which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
