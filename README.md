@@ -15,7 +15,7 @@ We now describe how to create a complete Dodona exercise that uses the C judge. 
 2. `evaluation` folder which contains the required files to test the student's submitted solution using the C judge. 
 3. `config.json` file which describes metadata on the exercise and evaluation (e.g. the name of the exercise, the evaluation handler to be used, etc.). Both the handler's name and the name of the programming language should be `c`.
 
-The C judge relies on a C++ testing framework [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) for writing the tests you find in the evaluation folder. Each exercise is verified via one or several test cases that are implemented using this framework. More concretely, the `evaluation` folder will usually contain a header file and a number of C++ files. The C++ files encode the interaction with the C judge to test the student's submission. We further detail how to write the evaluation of an assignment in the following section (Section ["Writing Tests"](#writing-tests)).  
+The C judge relies on a C++ testing framework [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) for writing the tests you find in the evaluation folder. Each exercise is verified via one or several test cases that are implemented using this framework. More concretely, the `evaluation` folder will usually contain a number of header and C++ files. The C++ files encode the interaction with the C judge to test the student's submission. We further detail how to write the evaluation of an assignment in the following section (Section ["Writing Tests"](#writing-tests)).  
 
 Note that, although the C Judge relies on a C++ testing framework, the judge currently only supports evaluating C submissions. 
 
@@ -25,13 +25,13 @@ TODO: leave a link for the different fields a confif.json file may have.
 
 ## Writing Tests
 
-As previously mentioned, each exercise is verified via one or several test cases that are implemented using the GTest framework. This framework allows for generating JSON output to specify which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
+As previously mentioned, each student submission is verified via one or several test cases that are implemented using the GTest framework. This framework runs the test cases and  generates a JSON output file specifying which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
 
 Test cases can employ any feature that is provided by GTest, but they must generate a sensible JSON output that is understood by the output parser. In what follows we first describe how to write test files, and then Section ["JSON output"](#json-output) describes the output parser . 
 
-### Test Files
+### The evaluation directory 
 
-The `evaluation` directory of every exercise directory should contain a header file which includes:
+Writing test cases for a student submission boils down to provide a number of header and C++ files which interact with the C judge. More concretely, the `evaluation` directory of every exercise directory should contain a header file which includes:
 
 * the relevant header files for writing the test code, eg. standard library files like `stdio.h` or any custom ones,
 * defines the `RECORD_TEST` macro, and
@@ -46,16 +46,17 @@ Besides the header file, the `evaluation` directory may contain several other ki
 * All other files will by default be ignored by the C judge, but they may be read from or written to by the student's code.
 * Subdirectories in `evaluation` will be ignored entirely. To clarify: only be the C judge ?
 
-As noted above, each `.cpp` file will produce its own test executable. Test cases can therefore either be defined in one single source file, or spread out over multiple files. Implementing each test case in its own separate source file is cumbersome and significantly slows down the judge, but offers the following advantages:
+As noted above, each `.cpp` file will produce its own test executable. Test cases can therefore either be defined in one single source file, or spread out over multiple files. 
+We recommended to write all test cases in one source file for simple exercises where the student is unlikely to cause an unexpected runtime failure (e.g., exercises that do not use pointers, I/O, dynamic memory allocation, etc.) and to distribute each test case over their own source files for more complex exercises. While implementing each test case in its own separate source file may be cumbersome and significantly slow down the judge, it offers the following advantages:
 
 * An unexpected failure in the student's code (e.g., because of a segfault), will cause the executable to immediately and non-recoverably terminate. If the executable only performs one test case, the other test cases can still continue.
-* Handling exercises that use command-line arguments or the stdin stream is easier.  
-
-It is recommended to write all test cases in one source file when writing tests for trivial exercises, where the student is unlikely to cause an unexpected failure (e.g., exercises that do not use pointers, I/O, memory allocation etc.) and to distribute each test case over their own source files for more complex exercises (e.g., any exercise where pointers have to be used), as well as exercises where the student has to use command-line arguments or read from the stdin stream.
+* The handling of exercises that process command-line arguments or use the stdin stream is easier.  
 
 ### JSON Output
 
-When a test case is run by the GTest framework, its execution is recorded into a JSON output file. GTest provides the  `::testing::Test::RecordProperty(string key, int|string value)` function to record `value` (which can be either a string or an integer) for key into the output. Every test case must record a value for the following properties:
+When a test case is run by the GTest framework, its execution is recorded into a JSON output file. GTest provides the `::testing::Test::RecordProperty(string key, int|string value)` function to record `value` (which can be either a string or an integer) for key into the JSON output file. 
+
+Every test case must record a value for the following properties:
 
 * `description`: a string describing what the test case is testing. Corresponds with item 2 in Figure \ref{annotated_feedback}. Can be any string.
 
