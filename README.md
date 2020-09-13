@@ -1,21 +1,22 @@
 # Dodona C Judge
 This page describes how to use a Dodona judge for the C language. 
 
-We describe how to add exercises which interact with the judge for evaluating student submissions. We assume that those exercises are pushed to a repository who has a webhook to run them on the judge integrated at the Dodona platform. For those users who would like to test their exercises locally before uploading them to Dodona, we detail the required software later in Section ["Behind The Scenes"](#behind-the-scenes).  
+We describe how to add exercises which interact with the judge for evaluating student submissions. We assume that those exercises are pushed to a repository which has a webhook to run them on the judge integrated at the Dodona platform. For those users who would like to test their exercises locally before uploading them to Dodona, we detail the required software later in Section ["Behind The Scenes"](#behind-the-scenes).  
 
 ## Adding Exercises
 
-We now describe how to create a complete Dodona exercise that uses the C judge. The `example_exercises` folder contains already a number of sample exercises together with the solutions. We will explain how to use the judge from a complete example stored in `example_exercises/fact_complete`. This folder contains three different kind of documents provided to create a complete exercise:
+We describe how to create a complete Dodona exercise that uses the C judge. The `example_exercises` folder already contains a number of sample exercises together with the solutions. We will explain how to use the judge from a complete example stored in `example_exercises/fact_complete`. This folder contains three different kind of documents provided to create a complete exercise:
 
 1. `description` folder which contains in markdown the assignment the student needs to complete.
 2. `evaluation` folder which contains the required files to test the student's submitted solution using the C judge. 
-3. `config.json` file which contains a JSON-formatted object to override some default compilation and linking mechanisms used by the judge. Both the handler's name and the name of the programming language should be `c` 
+3. `config.json` file which is the [Dodona exercise configuration file](https://dodona-edu.github.io/en/references/exercise-config/#config-file-structure-for-exercises). Both the handler's name and the name of the programming language should be `c`. The C judge itself does not use this file directly.
 
-The C judge relies on a C++ testing framework [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) for writing the tests you find in the evaluation folder. Each exercise is verified via one or several test cases that are implemented using this framework. More concretely, the `evaluation` folder will usually contain a number of header and C++ files. The C++ files encode the interaction with the C judge to test the student's submission. We further detail how to write the evaluation of an assignment in the following section (Section ["Writing Tests"](#writing-tests)).  
+The C judge relies on the C++ testing framework [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) for writing the tests you find in the `evaluation` folder. Each exercise is verified via one or several test cases that are implemented using this framework. More concretely, the `evaluation` folder will usually contain a number of header and C++ files. The C++ files encode the interaction with the C judge to test the student's submission. We further detail how to write the evaluation of an assignment in the following section (Section ["Writing Tests"](#writing-tests)).  
 
 Note that, although the C Judge relies on a C++ testing framework, the judge currently only supports evaluating C submissions. 
 
-The `config.json` file is actually optional. TODO (check this sentence because I don't know what you wanted to convey + why the rest of folders is not needed it is not clear) Since the judge ignores both the `config.json` file in a particular exercise's root directory as well as the `dirconfig.json` file in the exercise's ancestor directory, and also doesn't use any other file than the ones provided by the `evaluation` folder, there is nothing particular about the lay-out of Dodona exercises. We detail the list of keys that can be used in the `config.json` file to override default compilation and linking mechanisms later in Section ["Configuring Exercises"](#configuring-exercises).
+Since the judge ignores both the aforementioned `config.json` file in a particular exercise's root directory as well as the `dirconfig.json` file in the exercise's ancestor directory, and also doesn't use any file other than the ones provided by the `evaluation` folder, there is nothing particular about the lay-out of Dodona exercises (e.g., the `config.json` and `dirconfig.json` files or the contents of the `description` folder).
+We continue in [Section "Writing Test Cases"](#writing-test-cases) by explaining the lay-out of the `evaluation` folder.
 
 ## Writing Test Cases
 
