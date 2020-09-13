@@ -108,9 +108,9 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 ### Configuring Exercises
 
-Exercises can provide a configuration file to override some default compilation and linking mechanisms.
+As previously mentioned, exercises can provide a configuration file to override some default compilation and linking mechanisms.
 The configuration file must appear in the exercise's `evaluation` directory, have the name `config.json`, and contain a JSON-formatted object.
-The remainder of this sections lists all keys that are recognised by the C Judge. All of these keys are optional.
+The remainder of this section lists all keys that are recognised by the C Judge. All of these keys are optional.
 
 #### `"global_compiler_options"`
 
@@ -127,11 +127,13 @@ Specifies additional options used for the compilation of **a specific source cod
 ```
 the `-O0 -g3` options will be used for compiling `test_1.cpp`, while the `-D main=__submitted_main` option will be used for compiling the student's `submission.c` file. Options that are defined for a specific file will completely replace the global compiler options (see above). The student's code file is represented as `submission.c`.
 
-#### `"global_linker_options"`: Similar to `"global_compiler_options"`, but specifies additional options used for the linking of **all** final test executables. The value must be a string listing the linker options. For example, `"global_linker_options": "-L/some/dir -lsome_lib"` makes the C Judge pass the options `-L/some/dir` and `-lsome_lib` when linking.
+#### `"global_linker_options"` 
+
+Works similarly to `"global_compiler_options"`, but specifies additional options used for the linking of **all** final test executables. The value must be a string listing the linker options. For example, `"global_linker_options": "-L/some/dir -lsome_lib"` makes the C Judge pass the options `-L/some/dir` and `-lsome_lib` when linking.
 
 #### `"file_linker_options"`
 
-Similar to `"file_compiler_options"`, but specifies additional options used for linking of **specific object files**. Like `"file_compiler_options"`, the value must be a JSON object whose keys match the exact names of the **original source code files**. Example:
+Works similarly to `"file_compiler_options"`, but specifies additional options used for linking of **specific object files**. Like `"file_compiler_options"`, the value must be a JSON object whose keys match the exact names of the **original source code files**. For example:
 ```JSON
 "file_linker_options": {
   "test_1.cpp": "-lm",
@@ -142,7 +144,7 @@ Options that are defined for a specific file will completely replace the global 
 
 #### `"stdin"`
 
-Specifies strings that will be piped to the stdin of a specific test case. This can be used to test submissions which rely on `scanf`, `getchar`. The value of this key must be a JSON object whose keys match the exact names of the **original source code files** of the test executables and whose values are strings representing the actual stdin contents. Example:
+Specifies strings that will be piped to the `stdin` of a specific test case. This can be used to test submissions which rely on `scanf`, `getchar`, etc. The value of this key must be a JSON object whose keys match the exact names of the **original source code files** of the test executables and whose values are strings representing the actual `stdin` contents. Example:
 ```JSON
 "stdin_file": {
   "test_1.cpp": "this is stdin",
@@ -175,22 +177,8 @@ Specifies the command-line arguments to be supplied to specific test executables
 ### Shadowing `main`
 
 While compiling the student's submission file, a macro is automatically inserted to replace any occurrence of the identifier `main` with `__submission_main__`.
-If an exercise calls for the student to define their own `main`-function, test cases must call `__submission_main__` to execute the student's implementation.
+If an exercise ask for the student code to define their own `main`-function, test cases must call `__submission_main__` to execute the student's implementation.
 Note that this function must still be declared by the test case.
-
-### Compilation, Linking, and Execution Commands
-
-Below are the complete commands that are used to compile and link the various files mentioned in this document, as well as the command for running the test executables:
-
-* Compiling the student's submission file (which will be renamed `submission.c`): `g++ -x c -c [file_or_global_compiler_options] -D main=__submission_main__ submission.c -o submission.o`
-
-* Compiling auxiliary C files: `g++ -x c -c [file_or_global_compiler_options] file_name.c -o "aux_file_file_name.o"`
-
-* Compiling test files: `g++ -std=c++11 -c [file_or_global_compiler_options] "test_file_1.cpp" -o "test_file_1.o"`
-
-* Linking all files: `g++ aux_file_*.o submission.o "test_file_1.o" -o output [file_or_global_compiler_options] -lgtest -lgtest_main -pthread`
-
-* Executing a test case: `echo [stdin_content] | ./output "--gtest_output=json:$(pwd)/gtest_output" [command-line_args]`
 
 ## Example Exercises
 The `example_exercises` folder contains several example `evaluation` directories of Dodona exercises, as well as sample solutions, to demonstrate how the C Judge can be used to write tests for a variety of exercises:
@@ -213,8 +201,25 @@ The `example_exercises` folder contains several example `evaluation` directories
 
 * `stdout`: Shows how Google Test can be used to test what is written to stdout.
 
+## Behind the Scenes
 
-## Testing
+In what follows we include some information useful for testing submissions and the judge itself.
+
+### Compilation, Linking, and Execution Commands for Testing Submissions
+
+Below are the complete commands that are used to compile and link the various files mentioned in this document, as well as the command for running the test executables:
+
+* Compiling the student's submission file (which will be renamed `submission.c`): `g++ -x c -c [file_or_global_compiler_options] -D main=__submission_main__ submission.c -o submission.o`
+
+* Compiling auxiliary C files: `g++ -x c -c [file_or_global_compiler_options] file_name.c -o "aux_file_file_name.o"`
+
+* Compiling test files: `g++ -std=c++11 -c [file_or_global_compiler_options] "test_file_1.cpp" -o "test_file_1.o"`
+
+* Linking all files: `g++ aux_file_*.o submission.o "test_file_1.o" -o output [file_or_global_compiler_options] -lgtest -lgtest_main -pthread`
+
+* Executing a test case: `echo [stdin_content] | ./output "--gtest_output=json:$(pwd)/gtest_output" [command-line_args]`
+
+## Testing the Judge
 Some automated system tests for verying the backward-correctness of the judge have been provided in the `tests` folder.
 They can be run by executing the `autotest.sh` script. These tests simply run the judge on fixed tests and submissions files, capture its output, and compare this output with a predefined string. 
 
