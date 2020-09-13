@@ -1,15 +1,35 @@
 # Dodona C Judge
-This is a Dodona judge for the C language. 
+This page describes how to use a Dodona judge for the C language. 
 
-## Writing Tests
-The C judge uses the [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) framework for writing C++ tests. Each exercise is verified via one or several test cases that are implemented using this framework.
-This framework allows for generating JSON output to specify which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
-Test cases can employ any feature that is provided by GTest, but they must generate a sensible JSON output that is understood by the output parser (cf. Section ["JSON output"](#json-output)).
+## Requirements
+
+1. [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md)
+2. Python 2
+3. jhson
+
+## Adding Exercises
+
+We now describe how to create a complete Dodona exercise that uses the C judge. The `example_exercises` folder contains already a number of sample exercises together with the solutions. We will explain how to use the judge from a complete example stored in `example_exercises/fact_complete`. This folder contains three different kind of documents required to create a complete exercise:
+
+1. `description` folder which contains in markdown the assignment the student needs to complete.
+2. `evaluation` folder which contains the required files to test the student's submitted solution using the C judge. 
+3. `config.json` file which describes metadata on the exercise and evaluation (e.g. the name of the exercise, the evaluation handler to be used, etc.). Both the handler's name and the name of the programming language should be `c`.
+
+The C judge relies on a C++ testing framework [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md) for writing the tests you find in the evaluation folder. Each exercise is verified via one or several test cases that are implemented using this framework. More concretely, the `evaluation` folder will usually contain a set of header files and C++ files. The C++ files thus interact with the C judge to test the student's submission. We further detail how to write the evaluation of an assignment in the following section (Section ["Writing Tests"](#writing-tests)).  
 
 Note that, although the C Judge relies on a C++ testing framework, the judge currently only supports evaluating C submissions. 
 
+The `config.json` file inside the exercise directory is actually optional. Since the judge ignores both the `config.json` file in a particular exercise's root directory as well as the `dirconfig.json` file in the exercise's ancestor directory, and also doesn't use any other file than the ones provided by the `evaluation` folder, there is nothing particular about the lay-out of Dodona exercises.
+
+## Writing Tests
+
+As previously mentioned, each exercise is verified via one or several test cases that are implemented using the Google Test framework. This framework allows for generating JSON output to specify which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
+
+Test cases can employ any feature that is provided by GTest, but they must generate a sensible JSON output that is understood by the output parser. In what follows we first describe how to evaluate exercises and then the output parser (cf. Section ["JSON output"](#json-output)). 
+
 ### Test Files
-This section describes the contents of the `evaluation` folder of Dodona's exercises. For an overview on how to create a complete Dodona exercise that uses the C judge, see [Section "Dodona Exercises"](dodona-exercises),
+
+This section describes the contents of the `evaluation` folder of Dodona's exercises. 
 
 The `evaluation` directory of every exercise directory should contain a header file which includes the relevant header files for writing the Google Tests, defines the `RECORD_TEST` macro (cf. Section ["Writing a Test Case"](#writing-a-test-case)), and declares the function(s) to be implemented by the student in this exercise. These functions should be declared as `extern "C"`.
 `exercise_template_header.h` may serve as a template for such a header file. 
@@ -194,9 +214,4 @@ The `example_exercises` folder contains several example `evaluation` directories
 Some automated system tests for verying the backward-correctness of the judge have been provided in the `tests` folder.
 They can be run by executing the `autotest.sh` script. These tests simply run the judge on fixed tests and submissions files, capture its output, and compare this output with a predefined string. 
 
-## Dodona Exercises
-The previous sections described how to structure the `evaluation` folder of a Dodona exercise.
-Since the judge ignores both the `config.json` file in a particular exercise's root directory as well as the `dirconfig.json` file in the exercise's ancestor directory, and also doesn't use any other file than the ones provided by the `evaluation` folder, there is nothing particular about the lay-out of Dodona exercises.
-Both the handler's name and the name of the programming language should be `c`.
 
-A complete example on how to implement an exercise is provided in `example_exercises/fact_complete`. This folder contains not only the `evaluation` folder described in the previous sections, but also Dodona's `config.json` and a `description`.
