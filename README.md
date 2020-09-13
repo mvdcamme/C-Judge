@@ -217,7 +217,7 @@ Below are the complete commands that are used to compile and link the various fi
 
 ### Running locally exercises
 
-We now details the steps to run the test cases locally in your machine before uploading exercises to the Dodona platform. We assume that your computer has jhson and python 2 installed.  
+We now details the steps to run the test cases locally in your machine before uploading exercises to the Dodona platform. We first detail the software that needs to be installed, and then specify how to use the ``judge_check`` script to check exercises.
 
 #### Requirements 
 
