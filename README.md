@@ -20,32 +20,32 @@ We continue in [Section "Writing Test Cases"](#writing-test-cases) by explaining
 
 ## Writing Test Cases
 
-As previously mentioned, each student submission is verified via one or several test cases that are implemented using the GTest framework. This framework runs the test cases and  generates a JSON output file specifying which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
+As previously mentioned, each student submission is verified via one or several test cases that are implemented in the GTest framework. This framework runs the test cases and generates a JSON output file specifying which test cases failed or passed. Once all tests have been completed, the JSON output is collected and parsed to provide the appropriate feedback to the students.
 
 Test cases can employ any feature that is provided by GTest, but they must generate a sensible JSON output that is understood by the output parser (detailed later in Section ["JSON output"](#json-output)). 
 
-### The evaluation directory 
+### The `evaluation` directory 
 
-Writing test cases for a student submission boils down to provide a number of header and C++ files which interact with the C judge. More concretely, the `evaluation` directory of every exercise directory should contain a header file which includes:
+Writing test cases for a student submission boils down to providing a number of header and C++ files which interact with the C judge. More concretely, the `evaluation` directory of every exercise directory should contain a header file which:
 
-* the relevant header files for writing the test code, eg. standard library files like `stdio.h` or any custom ones,
+* includes the relevant header files for writing the test code, eg. standard library files like `stdio.h` or any custom ones (note that any custom, C-specific header file should be wrapped as `extern "C" { #include "custom_header_in_C.h" }`,
 * defines the `RECORD_TEST` macro, and
 * declares the function(s) to be implemented by the student in this exercise. These functions should be declared as `extern "C"`.
 
-A template for a header file is included in `example_exercises/exercise_template_header.h`. It already includes a default definition of the `RECORD_TEST` macro which we recommend to use (though not it is required) to write tests as it takes care of things like unexpected failures when executing students' code. We will further detail the `RECORD_TEST` macro in Section ["Writing a Test Case"](#writing-a-test-case).
+A template for such a header file is included in `example_exercises/exercise_template_header.h`. It already includes a default definition of the `RECORD_TEST` macro which we recommend to use (though not it is required) to write tests as it takes care of things like unexpected failures when executing students' code and removes some boilerplate code. We will further detail the `RECORD_TEST` macro in Section ["Writing a Test Case"](#writing-a-test-case).
 
 Besides the header file, the `evaluation` directory may contain several other kinds of files:
 
-* Files ending in `.cpp`: Each file with this extension is considered to be *a GTest file* and will be compiled to a **separate** test executable. Each `.cpp` file should include the aforementioned header file. These files will be compiled as C++11 code. The names of these files should **not** start with `aux_file_` as these names are reserved for the judge.
-* Files ending in `.c`: These files will be considered *auxiliary C files*, and may contain code that could be used by the student for completing the assignment, or by the test cases. Once compiled, all corresponding object files will be linked together with the student's code and one individual test file. Auxiliary files will be compiled as C code, instead of C++ code. The file name `submission.c` cannot be used, as it is reserved for the student's submission.
-* All other files will by default be ignored by the C judge, but they may be read from or written to by the student's code.
-* Subdirectories in `evaluation` will be ignored entirely. To clarify: only be the C judge ?
+* Files ending in `.cpp`: Each file with this extension is considered to be *a GTest file* and will be compiled to a **separate** test executable. Each `.cpp` file should include the aforementioned header file. These files will be compiled as C++11 code. The names of these files should **not** start with `aux_file_` as these names are reserved by the judge.
+* Files ending in `.c`: These files will be considered *auxiliary C files*, and may contain code that could be used by the student for completing the assignment, or by the test cases. Once compiled, all corresponding auxiliary object files will be linked together with the student's code and one individual test file. Auxiliary files will be compiled as C code, instead of C++ code. The file name `submission.c` cannot be used, as it is reserved for the student's submission.
+* All other files will by default be ignored by the C judge, but they may be read from or written to by the student's code or the testcases.
+* Subdirectories in `evaluation` will be ignored entirely by the C judge. Files in a subdirectory cannot be read by the student's code or the testcases.
 
-As noted above, each `.cpp` file will produce its own test executable. Test cases can therefore either be defined in one single source file, or spread out over multiple files. 
-We recommended to write all test cases in one source file for simple exercises where the student is unlikely to cause an unexpected runtime failure (e.g., exercises that do not use pointers, I/O, dynamic memory allocation, etc.) and to distribute each test case over their own source files for more complex exercises. While implementing each test case in its own separate source file may be cumbersome and significantly slow down the judge, it offers the following advantages:
+As noted above, each `.cpp` file will produce its own test executable. Test cases can therefore either be defined in one single source file, or be spread out over multiple files. 
+We recommend writing all test cases in one source file for simple exercises where the student is unlikely to cause an unexpected runtime failure (e.g., exercises that do not use pointers, I/O, dynamic memory allocation, etc.) and to distribute each test case over their own source files for more complex exercises. While implementing each test case in its own separate source file may be cumbersome and significantly slow down the judge, it offers the following advantages:
 
-* An unexpected failure in the student's code (e.g., because of a segfault), will cause the executable to immediately and non-recoverably terminate. If the executable only performs one test case, the other test cases can still continue.
-* The handling of exercises that process command-line arguments or use the stdin stream is easier.  
+* An unexpected failure in the student's code (e.g., because of a segfault), will cause the executable to immediately and non-recoverably terminate. If the executable only performs one test case, the other test cases can still continue and provide meaningful feedback.
+* It becomes easier to handle exercises that process command-line arguments or use the stdin stream.  
 
 ### JSON Output
 
