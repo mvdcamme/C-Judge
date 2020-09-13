@@ -285,11 +285,47 @@ An example of `input.json` to test the testcases in `example_exercises/fact_comp
 ```
 Note that the working directory used by the judge and specified in the value for the key `workdir`, needs to exist. In this example, a directory named `working_dir` is expected to exist at the judge's path (i.e. in `$JUDGE_HOME`).
 
-4. Run the test cases using the ``judge_check`` script.
+4. Run the test cases using the `judge_check` script.
 ```
 judge_check
 ```
 The script runs the judge on `source.c` for the test cases found in the `resources` path specified in the `input.json` file. The script prints to the console the the raw JSON-formated output file created by GTest.
+
+In our running example the expect output after runing the `judge_check` script is:
+
+```
+{
+    "status": "correct", 
+    "accepted": true, 
+    "groups": [
+        {
+            "description": "FactorialTest", 
+            "groups": [
+                {
+                    "accepted": true, 
+                    "groups": [
+                        {
+                            "tests": [
+                                {
+                                    "expected": "1", 
+                                    "generated": "1", 
+                                    "accepted": true, 
+                                    "messages": []
+                                }
+                            ], 
+                            "accepted": true, 
+                            "messages": [], 
+                            "description": {
+                                "permission": "student", 
+                                "description": "fac(-5)", 
+                                "format": "code"
+                            }
+                        }
+                    ]
+                }, 
+
+.... // continues
+```
 
 ### Testing the Judge
 Some automated system tests for verying the backward-correctness of the judge have been provided in the `tests` folder.
