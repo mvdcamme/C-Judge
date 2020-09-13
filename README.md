@@ -104,7 +104,7 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 ### Configuring Exercises
 
-As previously mentioned, exercises can provide a configuration file to override some default compilation and linking mechanisms. The default compilation and linking options are described in Section ["Compilation, Linking, and Execution Commands used for Submissions"](#compilation-linking-and-execution-commands-used-for-submissions).
+As previously mentioned, exercises can provide a configuration file to override some default compilation and linking mechanisms used by the C judge. The default compilation and linking options are described in Section ["Compilation, Linking, and Execution Commands used for Submissions"](#compilation-linking-and-execution-commands-used-for-submissions).
 
 The configuration file must be named `config.json`, be stored in the exercise's `evaluation` directory and it must contain a JSON-formatted object. The remainder of this section lists all keys are recognised by the C Judge that can be part of such a JSON-formatted object. All of these keys are optional.
 
