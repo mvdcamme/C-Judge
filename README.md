@@ -49,15 +49,15 @@ We recommend writing all test cases in one source file for simple exercises wher
 
 ### JSON Output
 
-When a test case is run by the GTest framework, its execution is recorded into a JSON output file. GTest provides the `::testing::Test::RecordProperty(string key, int|string value)` function to record a key value pair into the JSON output file in which `value` (which can be either a string or an integer). 
+When a test case is run by the GTest framework, its execution is recorded into a JSON output file. GTest provides the `::testing::Test::RecordProperty(string key, int|string value)` function to record a key value pair into the JSON output file in which `value` (which can be either a string or a number). 
 
 Every test case **must** record a value for the following properties:
 
-* `description`: a string describing what the test case is testing. It corresponds with item 2 in Figure \ref{annotated_feedback}. It can be any string.
+* `description`: a string or number describing what the test case is testing. It corresponds with item 2 in [this figure](#annotated-feedback). It can be any string or number.
 
-* `expected`: a string representation of the expected value returned by, or the expected property exhibited by, the student's code. It corresponds with item 3 in Figure \ref{annotated_feedback}. This string is only displayed if the test case failed. It can also be any string.
+* `expected`: a string or number representation of the expected value returned by, or the expected property exhibited by, the student's code. It corresponds with item 3 in [this figure](#annotated-feedback). This string is only displayed if the test case failed. It can also be any string or number.
 
-* `actual`: the actual value produced when executing the student's code. It corresponds with item 4 in Figure \ref{annotated_feedback}. It can be either a string or an integer.  
+* `actual`: the actual value produced when executing the student's code. It corresponds with item 4 in [this figure](#annotated-feedback). It can be either a string or an integer.  
 
 ### Writing a Test Case using `RECORD_TEST`
 
@@ -91,7 +91,7 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 `RECORD_TEST` takes the following five arguments:
 
-* `tab_name` (`FactorialTest` in the above example): the name of the tab in which the feedback will be displayed to the student. Corresponds with item 1 in Figure \ref{annotated_feedback}. As `tab_name` is mangled by the GTest framework into (a part of) the name of an internal GTest function, `tab_name` should be a valid C++ identifier, and should not contain special characters e.g. parentheses.
+* `tab_name` (`FactorialTest` in the above example): the name of the tab in which the feedback will be displayed to the student. Corresponds with item 1 in [this figure](#annotated-feedback). As `tab_name` is mangled by the GTest framework into (a part of) the name of an internal GTest function, `tab_name` should be a valid C++ identifier, and should not contain special characters e.g. parentheses.
 
 * `test_name` (`2`): a unique identifier for the test case executed. This identifier is never shown to the student. Similar to `tab_name` however, `test_name` is mangled into a part of the name of an internal GTest function, so the same naming restrictions as `tab_name` apply.
 
@@ -101,6 +101,7 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 * `statement` (`{...}`): a statement (usually a block) to perform the actual test: execute the student's code (`int actual = fac(1)` in the example), check the return value or the exhibited property of the code (`EXPECT_EQ(1, actual);`), and use `RecordProperty("actual", ...);` to record the actual value/property produced. GTest defines non-fatal (`EXPECT_`) and fatal (`ASSERT_`) assertions. The example exercises provided by this judge all use non-fatal assertions, but using fatal assertions is also allowed.
 
+### Annotated Feedback
 ![A screenshot of the feedback presented to the student\label{annotated_feedback}.](doc/annotated_feedback.png)
 
 ### Configuring Exercises
