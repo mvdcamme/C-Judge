@@ -1,11 +1,7 @@
 # Dodona C Judge
 This page describes how to use a Dodona judge for the C language. 
 
-## Requirements
-
-1. [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md)
-2. Python 2
-3. jhson
+We describe how to add exercises which interact with the judge for evaluating student submissions. We assume that those exercises are uploaded to the teacher's exercise repository who has a webhook to run them on the judge integrated at the Dodona platform. For those users who would like to test their exercises locally before uploading them to Dodona, we detail the required software that needs to be locally installed in Section ["Behind The Scenes"](#behind-the-scenes).  
 
 ## Adding Exercises
 
@@ -218,6 +214,16 @@ Below are the complete commands that are used to compile and link the various fi
 * Linking all files: `g++ aux_file_*.o submission.o "test_file_1.o" -o output [file_or_global_compiler_options] -lgtest -lgtest_main -pthread`
 
 * Executing a test case: `echo [stdin_content] | ./output "--gtest_output=json:$(pwd)/gtest_output" [command-line_args]`
+
+### Running locally exercises
+
+Those user who would like to test and run the test cases locally in their machines before uploading exercises to the Dodona platform will need to install the following software in their machines:
+
+1. [Google Test (GTest)](https://github.com/google/googletest/blob/master/googletest/docs/primer.md)
+2. Python 2
+3. jhson
+
+TODO
 
 ### Testing the Judge
 Some automated system tests for verying the backward-correctness of the judge have been provided in the `tests` folder.
