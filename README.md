@@ -33,7 +33,7 @@ Test cases can employ any feature that is provided by GTest, but they must gener
 
 The `evaluation` directory of every exercise directory should contain a header file which includes:
 
-* the relevant header files for writing the test code, eg. standard library facilities like `stdio.h` or any custom ones.
+* the relevant header files for writing the test code, eg. standard library files like `stdio.h` or any custom ones,
 * defines the `RECORD_TEST` macro, and
 * declares the function(s) to be implemented by the student in this exercise. These functions should be declared as `extern "C"`.
 
