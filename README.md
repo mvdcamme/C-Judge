@@ -107,7 +107,9 @@ RECORD_TEST(FactorialTest, 2, "fac(1)", "1", {
 
 ### Configuring Exercises
 
-As previously mentioned, exercises can provide a configuration file to override some default compilation and linking mechanisms used by the C judge. The default compilation and linking options are described in Section ["Compilation, Linking, and Execution Commands used for Submissions"](#compilation-linking-and-execution-commands-used-for-submissions).
+Exercises can optionally provide a configuration file in their `evaluation` folder to override some default compilation and linking mechanisms used by the C judge.
+This configuration file is not to be confused with Dodona's configuration file in the root folder of the exercise.
+The default compilation and linking options are described in Section ["Compilation, Linking, and Execution Commands used for Submissions"](#compilation-linking-and-execution-commands-used-for-submissions).
 
 The configuration file must be named `config.json`, be stored in the exercise's `evaluation` directory and it must contain a JSON-formatted object. The remainder of this section lists all keys are recognised by the C Judge that can be part of such a JSON-formatted object. All of these keys are optional.
 
@@ -176,7 +178,7 @@ Specifies the command-line arguments to be supplied to specific test executables
 ### Shadowing `main`
 
 While compiling the student's submission file, a macro is automatically inserted to replace any occurrence of the identifier `main` with `__submission_main__`.
-If an exercise ask for the student code to define their own `main`-function, test cases must call `__submission_main__` to execute the student's implementation.
+If an exercise asks for the student code to define their own `main`-function, test cases must call `__submission_main__` to execute the student's implementation.
 Note that this function must still be declared by the test case.
 
 ## Example Exercises
