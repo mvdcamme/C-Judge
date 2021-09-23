@@ -140,10 +140,10 @@ do_everything() {
 	cat $feedback
 
 	# Hard-kill the timeout subprocess before it prints a time-out error
-	kill -9 $TIMEOUT_CHECK 2> /dev/null
+	# kill -9 $TIMEOUT_CHECK 2> /dev/null
 	exit 0
 }
 
-( sleep $script_time_limit ; check_timeout ) &
-TIMEOUT_CHECK=$!
+# ( sleep $script_time_limit ; check_timeout ) &
+# TIMEOUT_CHECK=$!
 do_everything
