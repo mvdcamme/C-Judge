@@ -76,6 +76,14 @@ class SingleTab:
 		self.name = name
 		self.context = context
 		
+def get_test_case_descriptor(json_context):
+	if ("description" in json_context):
+		return json_context["description"]
+	elif ("name" in json_context):
+		return json_context["name"]
+	else:
+		return "unknown_test"
+		
 class Tab:
 	"""{
 	"name": "FactorialTest",
@@ -90,8 +98,13 @@ class Tab:
 	def add_prepared_context(self, context):
 		self.contexts.append(context)
 	def add_context(self, json_context):
-		context = Context(json_context)
-		self.add_prepared_context(context)
+		try:
+			context = Context(json_context)
+			self.add_prepared_context(context)
+		except KeyError:
+			description = get_test_case_descriptor(json_context)
+			context = UnexpectedFailureContext(description)
+			self.add_prepared_context(context)
 	def add_contexts(self, json_contexts):
 		for json_context in json_contexts:
 			self.add_context(json_context)
