@@ -1,6 +1,6 @@
 #!/bin/sh
 
-trap "exit" INT TERM ERR
+trap "exit" INT TERM ERR SIGSEGV
 
 config="$(mktemp)"
 out_submission="$(mktemp)"
