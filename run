@@ -129,7 +129,7 @@ do_everything() {
 		fi
 		maybe_write_compiler_error $err_linking
 		# Run the executable: pipe stdin and pass command-line args
-		echo $unittest_stdin | { ./$output_executable "--gtest_output=json:$(pwd)/$output_googletest" $unittest_command_line_args > /dev/null } >& /dev/null
+		echo $unittest_stdin | { ./$output_executable "--gtest_output=json:$(pwd)/$output_googletest" $unittest_command_line_args > /dev/null; } >& /dev/null
 		idx=$((idx+1))
 	done
 
