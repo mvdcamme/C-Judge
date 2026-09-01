@@ -1,0 +1,11 @@
+# Paths Dodona leaves out when syncing this repository to the judge's files
+# directory, which is copied into the sandbox for every submission. Only
+# run, judge_check, parse_compiler_errors.py, parse_test_output.py and timeout.json are read at judging time.
+# Patterns are rsync exclude patterns, anchored to the repository root.
+# See https://github.com/dodona-edu/dodona/issues/8763
+
+/tests/
+/example_exercises/
+/doc/
+/TODO.txt
+/README.md
